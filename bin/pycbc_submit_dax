@@ -18,7 +18,8 @@ exec 2>&1
 LOCAL_PEGASUS_DIR=""
 PEGASUS_PROPERTIES=""
 NO_QUERY_DB=0
-SUBMIT_DAX="--submit"
+# SUBMIT_DAX="--submit" # Commented because --dax is deprecated and --submit is used to submit a dax file.
+# SUBMIT_DAX="--submit gw.dax" # Newly added
 HTML_ENTITIES="{\"\'\": '&#39;', '(': '&#40;', ')': '&#41;', '+': '&#43;', '\"': '&quot;'}"
 
 # These will be changed by the bundle builder
@@ -88,7 +89,7 @@ while true ; do
 done
 
 #Make a directory for the submit files
-SUBMIT_DIR=`mktemp --tmpdir=${LOCAL_PEGASUS_DIR} -d pycbc-tmp.XXXXXXXXXX`
+SUBMIT_DIR=$(mktemp -d "${LOCAL_PEGASUS_DIR:-/tmp}/pycbc-tmp.XXXXXXXXXX")
 
 #Make sure the directory is world readable
 chmod 755 $SUBMIT_DIR
@@ -113,7 +114,6 @@ fi
 
 echo >> pegasus-properties.conf
 cat extra-properties.conf >> pegasus-properties.conf
-
 
 # Ian's bash-fu is not good enough to wrap this in the nice error handling that
 # it deserves!
