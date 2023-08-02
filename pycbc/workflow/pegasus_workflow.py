@@ -619,7 +619,7 @@ class Workflow(object):
                     # --dir is not being set here because it might be easier to
                     # set this in submit_dax still?
                     f.write('-q ')
-                    f.write('--dax {}'.format(filename))
+                    f.write('--submit {}'.format(filename))
         os.chdir(olddir)
 
     def plan_and_submit(self, submit_now=True):
